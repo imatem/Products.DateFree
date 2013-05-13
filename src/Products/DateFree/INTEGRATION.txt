@@ -1,0 +1,21 @@
+Test imports, only used for testing::
+    >>> from Products.Archetypes.tests.utils import mkDummyInContext
+    >>> from Products.Archetypes.tests.utils import Dummy
+    >>> from Products.Archetypes.atapi import Schema
+
+This one must be imported in the type's module::
+    >>> from Products.DateFree import Date
+
+Sample schema definition:
+    >>> schema = Schema(( Date.DateFreeField('begin_date'), ))
+
+Creating a dummy object using the schema
+    >>> instance = mkDummyInContext(Dummy, oid='dummy',
+    ...     context=self.portal, schema=schema)
+
+Set the date and check that it has been stored in the date field
+    >>> expected_value = {'Year': '2009', 'Month': '12', 'Day': '31'}
+    >>> instance.setBegin_date({'Day': '31', 'Month': '12', 'Year': '2009'})
+    >>> got = instance.getField('begin_date').get(instance)
+    >>> self.assertEquals(got, expected_value,
+    ... 'got: %r, expected: %r, field "begin_date"' % (got, expected_value))
