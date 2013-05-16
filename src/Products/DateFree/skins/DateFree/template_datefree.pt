@@ -26,9 +26,9 @@
                 <span tal:define="vocab python:f.Vocabulary(here);
                   name f/getName;
                   value python:request.get(name,'') or field.getDate(here, name);">
+                  <!-- tabindex tabindex/next; -->
                   <select tal:attributes="name name;
-                    id name;
-                    tabindex tabindex/next;">
+                    id name;">
                     <option tal:repeat="item vocab"
                       tal:attributes="value python:item;
                       selected python:here.checkSelected(item, value) and 'selected' or None"

@@ -13,13 +13,14 @@ from Products.DateFree.validators import DateFreeValidator
 
 emptyYear='----'
 emptyMonthDay='--'
-YEAR_VOCABULARY = [emptyYear] + range(date.today().year + 10, 1939, -1)
+
+YEAR_VOCABULARY = [emptyYear] + map(str,range(date.today().year + 10, 1939, -1))
 MONTH_VOCABULARY = DisplayList(((emptyMonthDay, emptyMonthDay),
       ('1', 'Enero'), ('2', 'Febrero'),\
       ('3', 'Marzo'), ('4', 'Abril'), ('5', 'Mayo'), ('6', 'Junio'),\
       ('7', 'Julio'), ('8', 'Agosto'), ('9', 'Septiembre'), ('10', 'Octubre'),\
       ('11', 'Noviembre'), ('12', 'Diciembre')))
-DAY_VOCABULARY = [emptyMonthDay] + range(1, 32)
+DAY_VOCABULARY = [emptyMonthDay] + map(str, range(1, 32))
 
 
 def test(x, y, z):
