@@ -14,7 +14,7 @@ from Products.DateFree.validators import DateFreeValidator
 emptyYear='----'
 emptyMonthDay='--'
 
-YEAR_VOCABULARY = [emptyYear] + map(str,range(date.today().year + 10, 1939, -1))
+YEAR_VOCABULARY = [emptyYear] + map(str,range(date.today().year + 5, 1939, -1))
 MONTH_VOCABULARY = DisplayList(((emptyMonthDay, emptyMonthDay),
       ('1', 'Enero'), ('2', 'Febrero'),\
       ('3', 'Marzo'), ('4', 'Abril'), ('5', 'Mayo'), ('6', 'Junio'),\
