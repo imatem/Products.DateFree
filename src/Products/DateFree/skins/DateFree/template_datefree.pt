@@ -16,30 +16,32 @@
   <metal:define define-macro="edit">
     <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
       <metal:body fill-slot="widget_body">
-        <table>
-          <thead>
-            <tr>
-              <th tal:repeat="f python:field.getFields()" align="left">
-                <div class="formHelp"
-                  tal:define="description python:f.widget.Description(here)"
-                  tal:content="structure description"> Help </div> 
-                <span tal:define="vocab python:f.Vocabulary(here);
-                  name f/getName;
-                  value python:request.get(name,'') or field.getDate(here, name);">
-                  <!-- tabindex tabindex/next; -->
-                  <select tal:attributes="name name;
-                    id name;">
-                    <option tal:repeat="item vocab"
-                      tal:attributes="value python:item;
-                      selected python:here.checkSelected(item, value) and 'selected' or None"
-                      tal:content="python:vocab.getValue(item)" />
-                  </select>
-                </span>
-                <span tal:condition="not:repeat/f/end">/</span>
-              </th>
-            </tr>
-          </thead>
-        </table>
+        <div tal:attributes="id python:field.getName()">
+          <table>
+            <thead>
+              <tr>
+                <th tal:repeat="f python:field.getFields()" align="left">
+                  <div class="formHelp"
+                    tal:define="description python:f.widget.Description(here)"
+                    tal:content="structure description"> Help </div>
+                  <span tal:define="vocab python:f.Vocabulary(here);
+                    name f/getName;
+                    value python:request.get(name,'') or field.getDate(here, name);">
+                    <!-- tabindex tabindex/next; -->
+                    <select tal:attributes="name name;
+                      id name;">
+                      <option tal:repeat="item vocab"
+                        tal:attributes="value python:item;
+                        selected python:here.checkSelected(item, value) and 'selected' or None"
+                        tal:content="python:vocab.getValue(item)" />
+                    </select>
+                  </span>
+                  <span tal:condition="not:repeat/f/end">/</span>
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
       </metal:body>
     </metal:use>
   </metal:define>
