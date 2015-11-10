@@ -11,6 +11,11 @@ from datetime import date
 from Products.DateFree import DateFreeMessageFactory as _
 from Products.DateFree.validators import DateFreeValidator
 
+from Acquisition import aq_get
+from zope.i18n import translate
+from zope.i18nmessageid import Message
+from Products.Archetypes.Field import *
+
 emptyYear='----'
 emptyMonthDay='--'
 
@@ -159,6 +164,24 @@ class DateFreeField(CompoundField):
             except:
                 fecha=test(minimo, getFirstDay(year, month), getLastDay(year, month))
         return fecha
+
+    def validate_required(self, instance, value, errors):
+        request = instance.REQUEST
+        if isinstance(value, basestring):
+            value = eval(value)
+        real_value = [i[0] for i in value.values() if i[0].isdigit()]
+        if not real_value:
+            label = self.widget.Label(instance)
+            name = self.getName()
+            if isinstance(label, Message):
+                label = translate(label, context=request)
+            error = _(u'error_required',
+                      default=u'${name} es requerido, por favor corrijalo.',
+                      mapping={'name': label})
+            error = translate(error, context=request)
+            errors[name] = error
+            return error
+        return None
 
 registerField(DateFreeField,
     title='DateFreeField',
