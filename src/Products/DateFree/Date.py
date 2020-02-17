@@ -112,6 +112,13 @@ class DateFreeField(CompoundField):
         return ('%02s/%02s/%04s' % (value['Day'],
                     value['Month'], value['Year'])).replace(' ', '0')
 
+    def getDateYYYYMMDD(self, instance):
+        ''' return string representation in format yyyy-mm-dd
+        '''
+        value = self.getRaw(instance)
+        return ('%04s-%02s-%02s' % (value['Year'],
+                    value['Month'], value['Day'])).replace(' ', '0')
+
     def getValueExistDate(self, instance):
         valor=self.getRaw(instance)
         Year=Month=Day=""
